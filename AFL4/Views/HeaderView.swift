@@ -11,14 +11,14 @@ struct HeaderView: View {
     var body: some View {
         HStack{
             VStack(alignment: .leading){
-                Text("Explore onsale games here")
+                Text("Explore onsale games here !")
                     .font(.system(size: 25)).bold()
             }
             Spacer()
             Image("anbu").resizable().frame(width: 50, height: 50)
                 .cornerRadius(50)
         }
-        .padding()
+
     }
 }
 
