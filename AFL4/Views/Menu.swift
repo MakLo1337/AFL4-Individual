@@ -33,6 +33,7 @@ struct ImageURL:View{
 }
 
 struct Menu: View {
+    @StateObject var gameindex = GameIndex()
     @StateObject var SteamSortedVM = ViewModelSteamSorted()
     @StateObject var EpicSortedVM = ViewModelEpicSorted()
     @StateObject var OriginSortedVM = ViewModelOriginSorted()
@@ -59,12 +60,12 @@ struct Menu: View {
                                     Text("Steam")
                                         .font(.system(size: 20)).bold()
                                     Spacer()
-                                    Button("More"){
-                                        
+                                    NavigationLink(destination: MoreMenu(storeid: 1)){
+                                        Text("More")
                                     }
                                 }
-                                .padding()
-                                LazyVGrid(columns: gridlayout, spacing: 0){
+                                .padding([.top, .leading, .trailing], 15.0)
+                                LazyVGrid(columns: gridlayout, spacing: 20){
                                     ForEach(SteamSortedVM.games, id:\.self){
                                         game in
                                         VStack {
@@ -82,13 +83,15 @@ struct Menu: View {
                                                         .padding(.bottom, 50)
                                                         .cornerRadius(10)
                                                     }
+                                                    
                                                     .frame(width: 180, height: 220).background(.white)
                                                     
                                                 }
                                                 .cornerRadius(10)
+                    
                                             }.shadow(color: Color.gray, radius: 2, x: 4, y: 4)
                                         }
-                                        .padding()
+                                        .padding([.leading, .bottom, .trailing])
                                     }
                                 }
                                 .onAppear{
@@ -108,7 +111,7 @@ struct Menu: View {
                                         
                                     }
                                 }
-                                .padding()
+                                .padding([.top, .leading, .trailing], 15.0)
                                 LazyVGrid(columns: gridlayout, spacing: 0){
                                     ForEach(EpicSortedVM.games, id:\.self){
                                         game in
@@ -133,7 +136,7 @@ struct Menu: View {
                                                 .cornerRadius(10)
                                             }.shadow(color: Color.gray, radius: 2, x: 4, y: 4)
                                         }
-                                        .padding()
+                                        .padding([.leading, .bottom, .trailing])
                                     }
                                 }
                                 .onAppear{
@@ -153,7 +156,7 @@ struct Menu: View {
                                         
                                     }
                                 }
-                                .padding()
+                                .padding([.top, .leading, .trailing], 15.0)
                                 LazyVGrid(columns: gridlayout, spacing: 0){
                                     ForEach(OriginSortedVM.games, id:\.self){
                                         game in
@@ -178,7 +181,7 @@ struct Menu: View {
                                                 .cornerRadius(10)
                                             }.shadow(color: Color.gray, radius: 2, x: 4, y: 4)
                                         }
-                                        .padding()
+                                        .padding([.leading, .bottom, .trailing])
                                     }
                                 }
                                 .onAppear{
@@ -198,7 +201,7 @@ struct Menu: View {
                                         
                                     }
                                 }
-                                .padding()
+                                .padding([.top, .leading, .trailing], 15.0)
                                 LazyVGrid(columns: gridlayout, spacing: 0){
                                     ForEach(GGSortedVM.games, id:\.self){
                                         game in
@@ -223,7 +226,7 @@ struct Menu: View {
                                                 .cornerRadius(10)
                                             }.shadow(color: Color.gray, radius: 2, x: 4, y: 4)
                                         }
-                                        .padding()
+                                        .padding([.leading, .bottom, .trailing])
                                     }
                                 }
                                 .onAppear{
@@ -243,7 +246,7 @@ struct Menu: View {
                                         
                                     }
                                 }
-                                .padding()
+                                .padding([.top, .leading, .trailing], 15.0)
                                 LazyVGrid(columns: gridlayout, spacing: 0){
                                     ForEach(GPSortedVM.games, id:\.self){
                                         game in
@@ -268,7 +271,7 @@ struct Menu: View {
                                                 .cornerRadius(10)
                                             }.shadow(color: Color.gray, radius: 2, x: 4, y: 4)
                                         }
-                                        .padding()
+                                        .padding([.leading, .bottom, .trailing])
                                     }
                                 }
                                 .onAppear{

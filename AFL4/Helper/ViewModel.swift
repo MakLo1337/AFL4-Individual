@@ -226,3 +226,7 @@ public class ViewModelGamersplanetSorted:ObservableObject{
     }
 
 }
+
+public class GameIndex: ObservableObject{
+    @Published var index = 0
+}
