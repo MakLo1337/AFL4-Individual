@@ -11,6 +11,7 @@
 		2A3809492844B2C400C4FD8C /* Wishlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3809482844B2C400C4FD8C /* Wishlist.swift */; };
 		2A38094B2844B2D700C4FD8C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38094A2844B2D700C4FD8C /* Settings.swift */; };
 		2A38094D2844E2A600C4FD8C /* MoreMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38094C2844E2A600C4FD8C /* MoreMenu.swift */; };
+		2A7DEFBE284E3418000577F4 /* UserWish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DEFBD284E3418000577F4 /* UserWish.swift */; };
 		2AC4E7D9283C65E5004884B4 /* AFL4App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4E7D8283C65E5004884B4 /* AFL4App.swift */; };
 		2AC4E7DB283C65E5004884B4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4E7DA283C65E5004884B4 /* ContentView.swift */; };
 		2AC4E7DD283C65E7004884B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AC4E7DC283C65E7004884B4 /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 		2A3809482844B2C400C4FD8C /* Wishlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wishlist.swift; sourceTree = "<group>"; };
 		2A38094A2844B2D700C4FD8C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		2A38094C2844E2A600C4FD8C /* MoreMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreMenu.swift; sourceTree = "<group>"; };
+		2A7DEFBD284E3418000577F4 /* UserWish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWish.swift; sourceTree = "<group>"; };
 		2AC4E7D5283C65E5004884B4 /* AFL4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AFL4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AC4E7D8283C65E5004884B4 /* AFL4App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AFL4App.swift; sourceTree = "<group>"; };
 		2AC4E7DA283C65E5004884B4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				2AC4E809283C8BEC004884B4 /* Games.swift */,
+				2A7DEFBD284E3418000577F4 /* UserWish.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				2A3809472844AE8D00C4FD8C /* Menu.swift in Sources */,
 				2A38094B2844B2D700C4FD8C /* Settings.swift in Sources */,
 				2AC4E7DB283C65E5004884B4 /* ContentView.swift in Sources */,
+				2A7DEFBE284E3418000577F4 /* UserWish.swift in Sources */,
 				2AC4E80A283C8BEC004884B4 /* Games.swift in Sources */,
 				2AC4E804283C6A78004884B4 /* HeaderView.swift in Sources */,
 				2AC4E808283C8BC2004884B4 /* ViewModel.swift in Sources */,

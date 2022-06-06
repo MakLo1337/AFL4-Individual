@@ -12,10 +12,10 @@ struct ImageURL:View{
     @State var data:Data?
     var body: some View{
         if let data = data, let uiimage = UIImage(data: data){
-            Image(uiImage: uiimage).resizable().aspectRatio(contentMode: .fill).frame(width:180, height: 130)
+            Image(uiImage: uiimage).resizable().aspectRatio(contentMode: .fill).frame(width:101, height: 30)
                 .background(.white)
         } else {
-            Image(systemName: "cart").resizable().frame(width: 180, height: 130).aspectRatio(contentMode: .fit).background(.gray).onAppear{
+            Image(systemName: "cart").resizable().frame(width: 70, height: 30).aspectRatio(contentMode: .fit).background(.gray).onAppear{
                 fetchdata()
             }
         }
@@ -33,7 +33,7 @@ struct ImageURL:View{
 }
 
 struct Menu: View {
-    @StateObject var gameindex = GameIndex()
+    @EnvironmentObject var userwish:UserWish
     @StateObject var SteamSortedVM = ViewModelSteamSorted()
     @StateObject var EpicSortedVM = ViewModelEpicSorted()
     @StateObject var OriginSortedVM = ViewModelOriginSorted()
@@ -63,8 +63,7 @@ struct Menu: View {
                                     NavigationLink(destination: MoreMenu(storeid: 1)){
                                         Text("More")
                                     }
-                                }
-                                .padding([.top, .leading, .trailing], 15.0)
+                                }.padding(.all, 13.0)
                                 LazyVGrid(columns: gridlayout, spacing: 20){
                                     ForEach(SteamSortedVM.games, id:\.self){
                                         game in
@@ -73,23 +72,35 @@ struct Menu: View {
                                                 ZStack(alignment:.bottomLeading){
                                                     VStack{
                                                         ImageURL(urlImg: game.thumb)
-                                                        Rectangle().fill(Color.red).frame(width: 180, height: 34, alignment: .bottomLeading).overlay(Text(game.savings.prefix(2) + "% OFF").foregroundColor(.white).bold())
+                                                        Rectangle().fill(Color.red).frame(width: 180, height: 50, alignment: .bottomLeading).overlay(Text(game.savings.prefix(2) + "% OFF").foregroundColor(.white).bold())
                                                         Text(game.title)
-                                                            .bold()
-                                                        Button("Add to wishlist"){
-                                                            
-                                                        }
-                                                        .background(.white).frame(height:40).buttonStyle(.bordered)
-                                                        .padding(.bottom, 50)
+                                                            .bold().lineLimit(1).padding()
+                                                        Button(action:{
+                                                            if(userwish.wishdata.contains(game)){
+                                                                if let index = userwish.wishdata.firstIndex(of: game){
+                                                                    userwish.wishdata.remove(at: index)
+                                                                }
+                                                            } else {
+                                                                userwish.addGames(game)
+                                                            }
+                                                        },
+                                                               label: {
+                                                            Text(userwish.wishdata.contains(game) ? "Remove" : "Add to wishlist")
+                                                                .foregroundColor(userwish.wishdata.contains(game) ? Color.white : Color.blue)
+                                                        })
+                                                        .background(userwish.wishdata.contains(game) ? Color.red : Color.white)
+                                                        .frame(height:40)
+                                                        .buttonStyle(.bordered)
+                                                        .padding(.bottom, 10)
                                                         .cornerRadius(10)
                                                     }
                                                     
-                                                    .frame(width: 180, height: 220).background(.white)
+                                                    .frame(width: 170, height: 220).background(.white)
                                                     
                                                 }
                                                 .cornerRadius(10)
                     
-                                            }.shadow(color: Color.gray, radius: 2, x: 4, y: 4)
+                                            }.shadow(color: Color.gray, radius: 4)
                                         }
                                         .padding([.leading, .bottom, .trailing])
                                     }
@@ -107,11 +118,10 @@ struct Menu: View {
                                     Text("Epic Games")
                                         .font(.system(size: 20)).bold()
                                     Spacer()
-                                    Button("More"){
-                                        
+                                    NavigationLink(destination: MoreMenu(storeid: 2)){
+                                        Text("More")
                                     }
-                                }
-                                .padding([.top, .leading, .trailing], 15.0)
+                                }.padding(.all, 13.0)
                                 LazyVGrid(columns: gridlayout, spacing: 0){
                                     ForEach(EpicSortedVM.games, id:\.self){
                                         game in
@@ -120,21 +130,33 @@ struct Menu: View {
                                                 ZStack(alignment:.bottomLeading){
                                                     VStack{
                                                         ImageURL(urlImg: game.thumb)
-                                                        Rectangle().fill(Color.red).frame(width: 180, height: 34, alignment: .bottomLeading).overlay(Text(game.savings.prefix(2) + "% OFF").foregroundColor(.white).bold())
+                                                        Rectangle().fill(Color.red).frame(width: 180, height: 50, alignment: .bottomLeading).overlay(Text(game.savings.prefix(2) + "% OFF").foregroundColor(.white).bold())
                                                         Text(game.title)
-                                                            .bold()
-                                                        Button("Add to wishlist"){
-                                                            
-                                                        }
-                                                        .background(.white).frame(height:40).buttonStyle(.bordered)
-                                                        .padding(.bottom, 50)
+                                                            .bold().lineLimit(1).padding()
+                                                        Button(action:{
+                                                            if(userwish.wishdata.contains(game)){
+                                                                if let index = userwish.wishdata.firstIndex(of: game){
+                                                                    userwish.wishdata.remove(at: index)
+                                                                }
+                                                            } else {
+                                                                userwish.addGames(game)
+                                                            }
+                                                        },
+                                                               label: {
+                                                            Text(userwish.wishdata.contains(game) ? "Remove" : "Add to wishlist")
+                                                                .foregroundColor(userwish.wishdata.contains(game) ? Color.white : Color.blue)
+                                                        })
+                                                        .background(userwish.wishdata.contains(game) ? Color.red : Color.white)
+                                                        .frame(height:40)
+                                                        .buttonStyle(.bordered)
+                                                        .padding(.bottom, 10)
                                                         .cornerRadius(10)
                                                     }
-                                                    .frame(width: 180, height: 220).background(.white)
+                                                    .frame(width: 170, height: 220).background(.white)
                                                     
                                                 }
                                                 .cornerRadius(10)
-                                            }.shadow(color: Color.gray, radius: 2, x: 4, y: 4)
+                                            }.shadow(color: Color.gray, radius: 4)
                                         }
                                         .padding([.leading, .bottom, .trailing])
                                     }
@@ -152,11 +174,10 @@ struct Menu: View {
                                     Text("Origin")
                                         .font(.system(size: 20)).bold()
                                     Spacer()
-                                    Button("More"){
-                                        
+                                    NavigationLink(destination: MoreMenu(storeid: 3)){
+                                        Text("More")
                                     }
-                                }
-                                .padding([.top, .leading, .trailing], 15.0)
+                                }.padding(.all, 13.0)
                                 LazyVGrid(columns: gridlayout, spacing: 0){
                                     ForEach(OriginSortedVM.games, id:\.self){
                                         game in
@@ -165,21 +186,33 @@ struct Menu: View {
                                                 ZStack(alignment:.bottomLeading){
                                                     VStack{
                                                         ImageURL(urlImg: game.thumb)
-                                                        Rectangle().fill(Color.red).frame(width: 180, height: 34, alignment: .bottomLeading).overlay(Text(game.savings.prefix(2) + "% OFF").foregroundColor(.white).bold())
+                                                        Rectangle().fill(Color.red).frame(width: 180, height: 50, alignment: .bottomLeading).overlay(Text(game.savings.prefix(2) + "% OFF").foregroundColor(.white).bold())
                                                         Text(game.title)
-                                                            .bold()
-                                                        Button("Add to wishlist"){
-                                                            
-                                                        }
-                                                        .background(.white).frame(height:40).buttonStyle(.bordered)
-                                                        .padding(.bottom, 50)
+                                                            .bold().lineLimit(1).padding()
+                                                        Button(action:{
+                                                            if(userwish.wishdata.contains(game)){
+                                                                if let index = userwish.wishdata.firstIndex(of: game){
+                                                                    userwish.wishdata.remove(at: index)
+                                                                }
+                                                            } else {
+                                                                userwish.addGames(game)
+                                                            }
+                                                        },
+                                                               label: {
+                                                            Text(userwish.wishdata.contains(game) ? "Remove" : "Add to wishlist")
+                                                                .foregroundColor(userwish.wishdata.contains(game) ? Color.white : Color.blue)
+                                                        })
+                                                        .background(userwish.wishdata.contains(game) ? Color.red : Color.white)
+                                                        .frame(height:40)
+                                                        .buttonStyle(.bordered)
+                                                        .padding(.bottom, 10)
                                                         .cornerRadius(10)
                                                     }
-                                                    .frame(width: 180, height: 220).background(.white)
+                                                    .frame(width: 170, height: 220).background(.white)
                                                     
                                                 }
                                                 .cornerRadius(10)
-                                            }.shadow(color: Color.gray, radius: 2, x: 4, y: 4)
+                                            }.shadow(color: Color.gray, radius: 4)
                                         }
                                         .padding([.leading, .bottom, .trailing])
                                     }
@@ -197,11 +230,10 @@ struct Menu: View {
                                     Text("GamersGate")
                                         .font(.system(size: 20)).bold()
                                     Spacer()
-                                    Button("More"){
-                                        
+                                    NavigationLink(destination: MoreMenu(storeid: 4)){
+                                        Text("More")
                                     }
-                                }
-                                .padding([.top, .leading, .trailing], 15.0)
+                                }.padding(.all, 13.0)
                                 LazyVGrid(columns: gridlayout, spacing: 0){
                                     ForEach(GGSortedVM.games, id:\.self){
                                         game in
@@ -210,21 +242,33 @@ struct Menu: View {
                                                 ZStack(alignment:.bottomLeading){
                                                     VStack{
                                                         ImageURL(urlImg: game.thumb)
-                                                        Rectangle().fill(Color.red).frame(width: 180, height: 34, alignment: .bottomLeading).overlay(Text(game.savings.prefix(2) + "% OFF").foregroundColor(.white).bold())
+                                                        Rectangle().fill(Color.red).frame(width: 180, height: 50, alignment: .bottomLeading).overlay(Text(game.savings.prefix(2) + "% OFF").foregroundColor(.white).bold())
                                                         Text(game.title)
-                                                            .bold()
-                                                        Button("Add to wishlist"){
-                                                            
-                                                        }
-                                                        .background(.white).frame(height:40).buttonStyle(.bordered)
-                                                        .padding(.bottom, 50)
+                                                            .bold().lineLimit(1).padding()
+                                                        Button(action:{
+                                                            if(userwish.wishdata.contains(game)){
+                                                                if let index = userwish.wishdata.firstIndex(of: game){
+                                                                    userwish.wishdata.remove(at: index)
+                                                                }
+                                                            } else {
+                                                                userwish.addGames(game)
+                                                            }
+                                                        },
+                                                               label: {
+                                                            Text(userwish.wishdata.contains(game) ? "Remove" : "Add to wishlist")
+                                                                .foregroundColor(userwish.wishdata.contains(game) ? Color.white : Color.blue)
+                                                        })
+                                                        .background(userwish.wishdata.contains(game) ? Color.red : Color.white)
+                                                        .frame(height:40)
+                                                        .buttonStyle(.bordered)
+                                                        .padding(.bottom, 10)
                                                         .cornerRadius(10)
                                                     }
                                                     .frame(width: 180, height: 220).background(.white)
                                                     
                                                 }
                                                 .cornerRadius(10)
-                                            }.shadow(color: Color.gray, radius: 2, x: 4, y: 4)
+                                            }.shadow(color: Color.gray, radius: 4)
                                         }
                                         .padding([.leading, .bottom, .trailing])
                                     }
@@ -242,11 +286,10 @@ struct Menu: View {
                                     Text("Gamesplanet")
                                         .font(.system(size: 20)).bold()
                                     Spacer()
-                                    Button("More"){
-                                        
+                                    NavigationLink(destination: MoreMenu(storeid: 5)){
+                                        Text("More")
                                     }
-                                }
-                                .padding([.top, .leading, .trailing], 15.0)
+                                }.padding(.all, 13.0)
                                 LazyVGrid(columns: gridlayout, spacing: 0){
                                     ForEach(GPSortedVM.games, id:\.self){
                                         game in
@@ -255,21 +298,33 @@ struct Menu: View {
                                                 ZStack(alignment:.bottomLeading){
                                                     VStack{
                                                         ImageURL(urlImg: game.thumb)
-                                                        Rectangle().fill(Color.red).frame(width: 180, height: 34, alignment: .bottomLeading).overlay(Text(game.savings.prefix(2) + "% OFF").foregroundColor(.white).bold())
+                                                        Rectangle().fill(Color.red).frame(width: 180, height: 50, alignment: .bottomLeading).overlay(Text(game.savings.prefix(2) + "% OFF").foregroundColor(.white).bold())
                                                         Text(game.title)
-                                                            .bold()
-                                                        Button("Add to wishlist"){
-                                                            
-                                                        }
-                                                        .background(.white).frame(height:40).buttonStyle(.bordered)
-                                                        .padding(.bottom, 50)
+                                                            .bold().lineLimit(1).padding()
+                                                        Button(action:{
+                                                            if(userwish.wishdata.contains(game)){
+                                                                if let index = userwish.wishdata.firstIndex(of: game){
+                                                                    userwish.wishdata.remove(at: index)
+                                                                }
+                                                            } else {
+                                                                userwish.addGames(game)
+                                                            }
+                                                        },
+                                                               label: {
+                                                            Text(userwish.wishdata.contains(game) ? "Remove" : "Add to wishlist")
+                                                                .foregroundColor(userwish.wishdata.contains(game) ? Color.white : Color.blue)
+                                                        })
+                                                        .background(userwish.wishdata.contains(game) ? Color.red : Color.white)
+                                                        .frame(height:40)
+                                                        .buttonStyle(.bordered)
+                                                        .padding(.bottom, 10)
                                                         .cornerRadius(10)
                                                     }
-                                                    .frame(width: 180, height: 220).background(.white)
+                                                    .frame(width: 170, height: 220).background(.white)
                                                     
                                                 }
                                                 .cornerRadius(10)
-                                            }.shadow(color: Color.gray, radius: 2, x: 4, y: 4)
+                                            }.shadow(color: Color.gray, radius: 4)
                                         }
                                         .padding([.leading, .bottom, .trailing])
                                     }
@@ -293,6 +348,6 @@ struct Menu: View {
 
 struct Menu_Previews: PreviewProvider {
     static var previews: some View {
-        Menu()
+        Menu().environmentObject(UserWish())
     }
 }
